@@ -32,10 +32,7 @@ Press `<leader>w` then `s` to jump to the top-right window.
 
 ```lua
 {
-  "your-username/neovim-window-picker",
-  keys = {
-    { "<leader>w", "<Plug>(WindowPickerPick)", desc = "Pick window" },
-  },
+  "cmdblock/neovim-window-picker",
   config = function()
     require("window-picker").setup()
   end,
@@ -46,7 +43,7 @@ Press `<leader>w` then `s` to jump to the top-right window.
 
 ```lua
 use {
-  "your-username/neovim-window-picker",
+  "cmdblock/neovim-window-picker",
   config = function()
     require("window-picker").setup()
   end
@@ -76,7 +73,7 @@ require("window-picker").setup({
   -- Filter which windows to include
   filter = function(win)
     local buf = vim.api.nvim_win_get_buf(win)
-    local buftype = vim.api.nvim_buf_get_option(buf, "buftype")
+    local buftype = vim.api.nvim_get_option_value("buftype", { buf = buf })
     -- Only include normal and help windows
     return buftype == "" or buftype == "help"
   end,
@@ -113,8 +110,8 @@ Show window hints and wait for user input to jump.
 
 Define or override the float window highlight group:
 
-```vim
-highlight WindowPickerFloat guifg=#ffffff guibg=#ff0000
+```lua
+vim.api.nvim_set_hl(0, "WindowPickerFloat", { fg = "#ffffff", bg = "#ff0000" })
 ```
 
 ## Requirements

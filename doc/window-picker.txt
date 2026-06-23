@@ -1,0 +1,110 @@
+*window-picker.txt*  Window picker plugin for Neovim
+
+==============================================================================
+CONTENTS                                                  *window-picker*
+
+  1. Introduction ............................... |window-picker-introduction|
+  2. Installation ............................. |window-picker-installation|
+  3. Configuration .............................. |window-picker-configuration|
+  4. Usage .................................... |window-picker-usage|
+  5. API ...................................... |window-picker-api|
+
+==============================================================================
+1. INTRODUCTION                               *window-picker-introduction*
+
+window-picker is a lightweight Neovim plugin for fast window navigation
+using letter hints. When triggered, it displays a single letter hint on
+each window. Press the corresponding letter to jump to that window.
+
+==============================================================================
+2. INSTALLATION                               *window-picker-installation*
+
+Using lazy.nvim:
+>
+  {
+    "your-username/neovim-window-picker",
+    keys = {
+      { "<leader>w", "<Plug>(WindowPickerPick)", desc = "Pick window" },
+    },
+    config = function()
+      require("window-picker").setup()
+    end,
+  }
+<
+
+Using packer.nvim:
+>
+  use {
+    "your-username/neovim-window-picker",
+    config = function()
+      require("window-picker").setup()
+    end
+  }
+<
+
+==============================================================================
+3. CONFIGURATION                              *window-picker-configuration*
+
+*window-picker.setup({opts})*
+
+  Configure the plugin. Call this in your init.lua.
+
+  Parameters:
+    {opts}  Optional table with the following fields:
+
+    labels: (string)
+      Letters used for window hints.
+      Default: "asdfghjkl;qwertyuiopzxcvbnm"
+
+    float: (table)
+      Floating window appearance options.
+      - border: (string) Border style.
+        Default: "rounded"
+      - style: (string) Window style.
+        Default: "minimal"
+      - highlight: (string) Highlight group name.
+        Default: "WindowPickerFloat"
+
+    filter: (function)
+      Function to filter which windows to include.
+      Receives a window handle, returns boolean.
+      Default: Only includes normal and help buffers.
+
+  Example:
+>
+  require("window-picker").setup({
+    labels = "1234567890",
+    float = {
+      border = "single",
+      highlight = "MyCustomHighlight",
+    },
+    filter = function(win)
+      return true
+    end,
+  })
+<
+
+==============================================================================
+4. USAGE                                      *window-picker-usage*
+
+Default mapping:
+  <leader>w    Show window hints and pick
+
+Custom mapping:
+>
+  vim.keymap.set("n", "<C-w>p", function()
+    require("window-picker").pick()
+  end, { desc = "Pick window" })
+<
+
+==============================================================================
+5. API                                        *window-picker-api*
+
+*window-picker.setup(opts)*
+  Initialize the plugin with optional configuration.
+
+*window-picker.pick()*
+  Show window hints and wait for user input to jump.
+
+==============================================================================
+vim:tw=78:ts=2:ft=help:norl:

@@ -5,7 +5,6 @@ local M = {}
 
 function M.setup(opts)
   config.setup(opts)
-  require("window-picker.plugin").setup()
 end
 
 function M.pick()
