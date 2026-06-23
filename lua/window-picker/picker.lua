@@ -15,7 +15,11 @@ function M.pick()
     end
   end
 
+  -- 调试信息
+  vim.notify("WindowPicker: total=" .. #wins .. " filtered=" .. #filtered, vim.log.levels.INFO)
+
   if #filtered <= 1 then
+    vim.notify("WindowPicker: only " .. #filtered .. " window(s), skipping", vim.log.levels.INFO)
     return
   end
 
@@ -42,6 +46,9 @@ function M.pick()
       local ok, fw = pcall(M._create_float, win, labels[win], opts)
       if ok then
         table.insert(float_wins, fw)
+        vim.notify("WindowPicker: created float for win " .. win .. " with label '" .. labels[win] .. "'", vim.log.levels.INFO)
+      else
+        vim.notify("WindowPicker: failed to create float for win " .. win, vim.log.levels.ERROR)
       end
     end
   end
@@ -50,6 +57,8 @@ function M.pick()
 
   local char = vim.fn.getchar()
   local ch = type(char) == "number" and vim.fn.nr2char(char) or char
+
+  vim.notify("WindowPicker: pressed '" .. ch .. "'", vim.log.levels.INFO)
 
   for _, fw in ipairs(float_wins) do
     if vim.api.nvim_win_is_valid(fw) then
@@ -60,6 +69,9 @@ function M.pick()
   local target = label_map[ch]
   if target and vim.api.nvim_win_is_valid(target) then
     vim.api.nvim_set_current_win(target)
+    vim.notify("WindowPicker: jumped to win " .. target, vim.log.levels.INFO)
+  else
+    vim.notify("WindowPicker: no target for '" .. ch .. "'", vim.log.levels.WARN)
   end
 end
 
