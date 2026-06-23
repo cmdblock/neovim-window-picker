@@ -65,22 +65,25 @@ end
 
 function M._create_float(win, label, opts)
   local buf = vim.api.nvim_create_buf(false, true)
-  vim.api.nvim_buf_set_lines(buf, 0, -1, false, { label })
+  vim.api.nvim_buf_set_lines(buf, 0, -1, false, { " " .. label .. " " })
   vim.api.nvim_set_option_value("bufhidden", "wipe", { buf = buf })
 
   local width = vim.api.nvim_win_get_width(win)
   local height = vim.api.nvim_win_get_height(win)
 
-  local row = math.floor(height / 2) - 1
-  local col = math.floor(width / 2) - 1
+  -- 计算居中位置，确保不为负数
+  local float_width = 3
+  local float_height = 1
+  local row = math.max(0, math.floor((height - float_height) / 2))
+  local col = math.max(0, math.floor((width - float_width) / 2))
 
   local float_opts = {
     relative = "win",
     win = win,
     row = row,
     col = col,
-    width = 3,
-    height = 1,
+    width = float_width,
+    height = float_height,
     style = opts.float.style,
     border = opts.float.border,
     focusable = false,
