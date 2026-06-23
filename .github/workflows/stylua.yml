@@ -1,0 +1,16 @@
+name: Stylua
+
+on: [push, pull_request]
+
+jobs:
+  stylua:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install stylua
+        uses: JohnnyMorganz/stylua-action@v2
+
+      - name: Run stylua
+        run: stylua --check .
