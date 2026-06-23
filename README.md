@@ -70,12 +70,9 @@ require("window-picker").setup({
     highlight = "WindowPickerFloat",
   },
 
-  -- Filter which windows to include
+  -- Filter which windows to include (default: include all windows)
   filter = function(win)
-    local buf = vim.api.nvim_win_get_buf(win)
-    local buftype = vim.api.nvim_get_option_value("buftype", { buf = buf })
-    -- Only include normal and help windows
-    return buftype == "" or buftype == "help"
+    return true
   end,
 })
 ```

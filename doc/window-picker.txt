@@ -68,7 +68,7 @@ Using packer.nvim:
     filter: (function)
       Function to filter which windows to include.
       Receives a window handle, returns boolean.
-      Default: Only includes normal and help buffers.
+      Default: Includes all windows.
 
   Example:
 >

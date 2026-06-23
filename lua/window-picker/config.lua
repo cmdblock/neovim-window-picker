@@ -8,9 +8,7 @@ M.defaults = {
     highlight = "WindowPickerFloat",
   },
   filter = function(win)
-    local buf = vim.api.nvim_win_get_buf(win)
-    local buftype = vim.api.nvim_get_option_value("buftype", { buf = buf })
-    return buftype == "" or buftype == "help"
+    return true
   end,
 }
 
