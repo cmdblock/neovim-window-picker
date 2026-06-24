@@ -95,10 +95,6 @@ end, { desc = "Pick window" })
 
 ## API
 
-### `setup(opts)`
-
-Initialize the plugin with optional configuration.
-
 ### `pick()`
 
 Show window hints and wait for user input to jump.
