@@ -98,10 +98,12 @@ function M.pick()
 			-- 如果创建成功，记录浮动窗口 ID
 			if ok then
 				table.insert(float_wins, result)
+				print("create float window seucced")
 			else
 				-- 创建失败，输出错误信息
 				vim.notify("WindowPicker create float failed:\n" .. tostring(result), vim.log.levels.ERROR)
 				print("create float window failed")
+				print(result)
 			end
 		end
 	end
@@ -171,17 +173,17 @@ function M._create_float(win, label, opts)
 
 	-- 创建浮动窗口
 	local fw = vim.api.nvim_open_win(buf, false, {
-		relative = "win",           -- 相对于目标窗口定位
-		win = win,                  -- 目标窗口 ID
-		row = row,                  -- 行偏移（居中）
-		col = col,                  -- 列偏移（居中）
-		width = float_width,        -- 浮动窗口宽度
-		height = float_height,      -- 浮动窗口高度
-		style = opts.float.style,   -- 窗口样式（如 "minimal"）
+		relative = "win", -- 相对于目标窗口定位
+		win = win, -- 目标窗口 ID
+		row = row, -- 行偏移（居中）
+		col = col, -- 列偏移（居中）
+		width = float_width, -- 浮动窗口宽度
+		height = float_height, -- 浮动窗口高度
+		style = opts.float.style, -- 窗口样式（如 "minimal"）
 		border = opts.float.border, -- 边框样式（如 "rounded"）
-		focusable = false,          -- 不可聚焦
-		noautocmd = true,           -- 不触发自动命令
-		zindex = 300,               -- 层级，确保显示在最上层
+		focusable = false, -- 不可聚焦
+		noautocmd = true, -- 不触发自动命令
+		zindex = 300, -- 层级，确保显示在最上层
 	})
 
 	-- 应用高亮样式（将 Normal 高亮映射到 WindowPickerFloat）
