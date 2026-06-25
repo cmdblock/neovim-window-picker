@@ -102,8 +102,6 @@ function M.pick()
 			else
 				-- 创建失败，输出错误信息
 				vim.notify("WindowPicker create float failed:\n" .. tostring(result), vim.log.levels.ERROR)
-				print("create float window failed")
-				print(result)
 			end
 		end
 	end
